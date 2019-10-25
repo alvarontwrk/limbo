@@ -1,2 +1,3 @@
 wifi-data
 *.swp
+.gitsecret/keys/random_seed
