@@ -1,0 +1,15 @@
+#!/bin/bash
+
+current=`xrandr --verbose | grep -i brightness | grep -Eo '[0-9]+\.?[0-9]*'`
+
+new=$current
+
+if [ $1 == "up" ]; then
+    new=`python3 -c "print($current+$2)"`
+elif [ $1 == "down" ]; then
+    new=`python3 -c "print($current-$2)"`
+elif [ $1 == "default" ]; then
+    new=1.0
+fi
+
+xrandr --output eDP-1 --brightness $new

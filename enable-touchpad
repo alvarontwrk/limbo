@@ -1,0 +1,8 @@
+#!/bin/bash
+# This script enable the one-tap touchpad functionality
+# xinput set-prop 12 275 1 # Enables Touchpad Tapping
+
+id=`xinput list | grep Touchpad | grep -Eo 'id=[0-9]+' | grep -Eo '[0-9]+'`
+prop=`xinput list-props $id | grep -Eo "Tapping Enabled \([0-9]*\)" | grep -Eo "[0-9]*"`
+
+xinput set-prop $id $prop 1

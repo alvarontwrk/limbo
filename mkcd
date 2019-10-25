@@ -1,0 +1,5 @@
+#!/bin/bash
+# This script makes a directory and 'cd' automatically
+
+mkdir $1
+cd $1
