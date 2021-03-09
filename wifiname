@@ -1,4 +1,4 @@
 #!/bin/bash
 # This script returns the WiFi name
 
-sudo iwconfig wlp3s0 | grep -o "\".*" | sed 's/"//g'
+sudo iwconfig wlp1s0 | grep -o "\".*" | sed 's/"//g'
