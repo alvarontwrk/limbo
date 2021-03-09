@@ -1,0 +1,7 @@
+#!/bin/sh
+
+msg=$(ping -c 1 $1)
+ttl=$(echo $msg | grep -Eo "ttl=[0-9]*" | cut -d "=" -f 2)
+
+[ $ttl -le 64 ] && echo "Linux" && exit 0
+[ $ttl -le 128 ] && echo "Windows" && exit 0

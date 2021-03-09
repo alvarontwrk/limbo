@@ -1,0 +1,29 @@
+#!/bin/sh
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+IP=$1
+
+rm -rf 127.0.0.1
+
+target-ip set $IP
+export TARGET=$IP
+
+for dir in scan scripts doc resources local
+do
+  mkdir -p $IP/$dir
+done
+
+echo "${GREEN}[+] Server IP: $IP"
+echo "[+] OS: $(whichos $IP)"
+echo "[+] Looking for open TCP ports...${NC}"
+naabu -host 10.11.1.14 -rate 100000 -p - -silent -retries 5 | tee $IP/scan/naabu_res; barky "[+] $IP: Finished TCP scan"
+PORTS=$(cat $IP/scan/naabu_res| grep -oP "(?<=:)\d*" | awk 'ORS=","' | sed 's/,$/\n/' | sed 's/^/-p/')
+
+echo "${GREEN}[+] Scanning services on open TCP ports...${NC}"
+(nmap $PORTS -A -T5 -Pn $IP -oN $IP/scan/open_tcp.nmap > /dev/null; barky "[+] $IP: Finished services enumeration on TCP open ports") &
+
+echo "${GREEN}[+] Scanning vulns on open TCP ports...${NC}"
+(nmap $PORTS -T5 --script="vuln" $IP -oN $IP/scan/vuln_tcp.nmap > /dev/null; barky "[+] $IP: Finished vuln scanning on TCP open ports") &
+
+wait

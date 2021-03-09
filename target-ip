@@ -1,0 +1,9 @@
+#!/bin/sh
+
+FILE='/tmp/target'
+
+[ $# -eq 0 ] && [ -f $FILE ] && cat $FILE 
+[ $# -eq 1 ] && [ $1 = "del" ] && rm $FILE
+[ $# -eq 2 ] && [ $1 = "set" ] && echo $2 > $FILE
+
+exit 0
