@@ -1,4 +1,0 @@
-#!/bin/bash
-# This script returns the WiFi IP
-
-ip a show wlp3s0 | grep -Eo "inet (\w|\.)*" | cut -d" " -f2
