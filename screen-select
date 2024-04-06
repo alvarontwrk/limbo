@@ -1,4 +1,0 @@
-#!/bin/bash
-
-choice=`xrandr | grep ' connected' | sed 's/ .*//g' | dmenu -p "Screens:"`
-echo $choice

@@ -1,9 +1,0 @@
-#!/bin/bash
-# Launches a VirtualBox headless VM 
-
-if [ -z $1 ] ; then
-    echo 'Choose:'
-    vboxmanage list vms | grep -Eo "\".*\"" | sed 's/"//g'
-else
-    vboxmanage startvm $1 --type headless
-fi

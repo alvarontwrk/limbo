@@ -1,5 +1,0 @@
-#!/bin/sh
-
-ip=$(ip -brief a show tun0 2> /dev/null)
-[ ! -z "$ip" ] || exit 1
-echo $ip | awk '{print $3}' | cut -d '/' -f 1 && exit 0
