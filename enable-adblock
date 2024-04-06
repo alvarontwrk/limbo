@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "search lan" | sudo tee /etc/resolv.conf
+echo "nameserver 192.168.44.2" | sudo tee -a /etc/resolv.conf

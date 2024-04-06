@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -x
+SRC_DIR="$HOME/src"
+URL="https://discord.com/api/download/stable?platform=linux&format=tar.gz"
+FINAL_URL=$(curl -si $URL | sed -rn '/location/s/(^.*location: )(.*[^\s]$)/\2/p')
+# remove carriage return from $FINAL_URL
+FINAL_URL=$(echo $FINAL_URL | tr -d '\r')
+wget $FINAL_URL -P $SRC_DIR
+cd $SRC_DIR
+tar xaf discord*.tar.gz
+rm discord*.tar.gz
+cd -

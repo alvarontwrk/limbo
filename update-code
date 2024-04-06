@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -x
+SRC_DIR="$HOME/src"
+URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-x64"
+FINAL_URL=$(curl -s -m 2 $URL | cut -d " " -f 4)
+wget $FINAL_URL -P $SRC_DIR
+cd $SRC_DIR
+tar xaf code*.tar.gz
+rm code*.tar.gz
+cd -
